@@ -1,0 +1,21 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: "backend-node-voting"
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: "backend-node-voting"
+  template:
+    metadata:
+      labels:
+        app: "backend-node-voting"
+    spec:
+      containers:
+        - name: "backend-node-voting"
+          # name doesnt matter since we will replace it with image substitution in actions
+          image: "srahul3.azurecr.io/backend-node-voting"
+          ports:
+            - containerPort: 8080
+          

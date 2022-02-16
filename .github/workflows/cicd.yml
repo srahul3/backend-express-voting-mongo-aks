@@ -1,0 +1,71 @@
+on: [push]
+
+permissions:
+  id-token: write
+  contents: write
+  
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+        
+    steps:
+    
+    - uses: actions/checkout@master
+    
+    - uses: azure/login@v1
+      with:
+        client-id: 10cfb1b7-8be3-4d42-aef0-8ea206ecc87a
+        tenant-id: c5da8880-8d88-4e7f-9bac-ddfca284ea75
+        subscription-id: f99fd245-91fb-4fb5-80b5-3a12f48208a1
+
+    - name: Create ACR
+      id: create-acr
+      run: |
+        az acr create -n ${{ secrets.ACR_NAME }} -g ${{ secrets.ACR_RESOURCE_GROUP }} --location "Central India" --sku Basic --admin-enabled
+        echo "::set-output name=acr_username::`az acr credential show -n ${{ secrets.ACR_NAME }} --query username | xargs`"
+        echo "::set-output name=acr_password::`az acr credential show -n ${{ secrets.ACR_NAME }} --query passwords[0].value | xargs`"
+        echo "::add-mask::`az acr credential show -n ${{ secrets.ACR_NAME }} --query passwords[0].value | xargs`"
+
+    - uses: azure/docker-login@v1
+      with:
+        login-server: ${{ secrets.ACR_NAME }}.azurecr.io
+        username: ${{ steps.create-acr.outputs.acr_username }}
+        password: ${{ steps.create-acr.outputs.acr_password }}
+
+    - name: Build and push image to ACR
+      id: build-image
+      run: |
+        docker build "$GITHUB_WORKSPACE" -f  "Dockerfile" -t ${{ secrets.ACR_NAME }}.azurecr.io/backend-node-voting:${{ github.sha }} --label dockerfile-path=Dockerfile
+        docker push ${{ secrets.ACR_NAME }}.azurecr.io/backend-node-voting:${{ github.sha }}
+    
+    - uses: azure/k8s-set-context@v1
+      id: login
+      with:
+         kubeconfig: ${{ secrets.AKS_KUBECONFIG }}
+    
+    - name: Create namespace
+      run: |
+        namespacePresent=`kubectl get namespace | grep default | wc -l`
+        if [ $namespacePresent -eq 0 ]
+        then
+            echo `kubectl create namespace default`
+        fi
+
+    - uses: azure/k8s-create-secret@v1
+      with:
+        namespace: default
+        container-registry-url: ${{ secrets.ACR_NAME }}.azurecr.io
+        container-registry-username: ${{ steps.create-acr.outputs.acr_username }}
+        container-registry-password: ${{ steps.create-acr.outputs.acr_password }}
+        secret-name: docker-container-auth
+
+    - uses: azure/k8s-deploy@v1.4
+      with:
+        namespace: default
+        manifests: |
+          manifests/deployment.yml
+          manifests/service.yml
+        images: |
+          ${{ secrets.ACR_NAME }}.azurecr.io/backend-nodde-voting:${{ github.sha }}
+        imagepullsecrets: |
+          docker-container-auth   
