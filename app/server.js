@@ -1,4 +1,3 @@
-# backend-express-voting-mongo-aks
 var express = require('express');
 var app = express();
 var fs = require("fs");
@@ -11,6 +10,16 @@ app.get('/:id', function (req, res) {
       console.log( user );
       res.end( JSON.stringify(user));
    });
+})
+
+app.get('/bootstrap', function (req, res) {
+   console.log( "home page is called" );
+   res.end( "{ page: 'bootstrap' }");
+})
+
+app.get('/', function (req, res) {
+   console.log( "home page is called" );
+   res.end( "{ page: 'Home' }");
 })
 
 var server = app.listen(8081, function () {

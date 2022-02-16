@@ -1,0 +1,13 @@
+{
+  "name": "samplerestapi",
+  "version": "1.0.0",
+  "description": "Edureka REST API with Node.js",
+  "main": "script.js",
+  "scripts": {},
+  "author": "Edureka",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4",
+    "joi": "^13.1.0"
+  }
+}
