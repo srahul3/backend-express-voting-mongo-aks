@@ -17,7 +17,7 @@ jobs:
         client-id: 10cfb1b7-8be3-4d42-aef0-8ea206ecc87a
         tenant-id: c5da8880-8d88-4e7f-9bac-ddfca284ea75
         subscription-id: f99fd245-91fb-4fb5-80b5-3a12f48208a1
-
+        
     - name: Create ACR
       id: create-acr
       run: |
