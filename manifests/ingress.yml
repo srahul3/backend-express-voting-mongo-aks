@@ -20,14 +20,17 @@ spec:
         backend:
           service:
             name: frontend-react-voting
-            port: 80
+            port: 
+              number: 80
       - path: /voting
         backend:
           service:
             name: node-voting-be-svc
-            port: 8080
+            port: 
+              number: 8080
       - path: /vote/(.+)
         backend:
           service:
             name: node-voting-be-svc
-            port: 8080
+            port:
+              number: 8080
