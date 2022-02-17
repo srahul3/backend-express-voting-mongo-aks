@@ -8,29 +8,34 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   ingressClassName: nginx
-  tls:
-  - hosts:
-    - srahul3-aks-ingress.centralindia.cloudapp.azure.com
-    secretName: cafe-secret
   rules:
   - host: srahul3-aks-ingress.centralindia.cloudapp.azure.com
     http:
       paths:
       - path: /
+        pathType: Prefix
         backend:
           service:
             name: frontend-react-voting
             port: 
               number: 80
       - path: /voting
+        pathType: Prefix
         backend:
           service:
             name: node-voting-be-svc
             port: 
               number: 8080
       - path: /vote/(.+)
+        pathType: Prefix
         backend:
           service:
             name: node-voting-be-svc
             port:
               number: 8080
+
+  defaultBackend:
+    service:
+      name: frontend-react-voting
+      port:
+        number: 80
