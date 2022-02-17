@@ -65,6 +65,7 @@ jobs:
         manifests: |
           manifests/deployment.yml
           manifests/service.yml
+          manifests/ingress.yml
         images: |
           ${{ secrets.ACR_NAME }}.azurecr.io/backend-node-voting:${{ github.sha }}
         imagepullsecrets: |
