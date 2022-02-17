@@ -3,7 +3,7 @@ kind: Service
 metadata:
     name: "node-voting-be-svc"
     annotations:    
-        service.beta.kubernetes.io/azure-load-balancer-internal: "false"
+        service.beta.kubernetes.io/azure-load-balancer-internal: "true"
     labels:
         app: "node-voting-be-svc"
 spec:
