@@ -10,17 +10,17 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - srahul3votingbe.centralindia.cloudapp.azure.com
+    - srahul3-aks-ingress.centralindia.cloudapp.azure.com
     secretName: cafe-secret
   rules:
-  - host: srahul3votingbe.centralindia.cloudapp.azure.com
+  - host: srahul3-aks-ingress.centralindia.cloudapp.azure.com
     http:
       paths:
       - path: /
         backend:
           service:
-            name: node-voting-be-svc
-            port: 8080
+            name: frontend-react-voting
+            port: 80
       - path: /voting
         backend:
           service:
