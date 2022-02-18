@@ -30,4 +30,12 @@ spec:
             name: node-voting-be-svc
             port:
               number: 8080
+
+      - path: /vote/.*
+        pathType: Prefix
+        backend:
+          service:
+            name: node-voting-be-svc
+            port:
+              number: 8080
           
