@@ -15,14 +15,6 @@ spec:
   - host: srahul3-awg-aks.centralindia.cloudapp.azure.com
     http:
       paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: frontend-react-voting
-            port:
-              number: 80
-
       - path: /voting/
         pathType: Prefix
         backend:
@@ -38,4 +30,12 @@ spec:
             name: node-voting-be-svc
             port:
               number: 8080
+
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: frontend-react-voting
+            port:
+              number: 80
           
