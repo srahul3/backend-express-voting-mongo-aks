@@ -18,7 +18,7 @@ spec:
         pathType: Prefix
         backend:
           name: frontend-react-voting
-            port:
+          port:
               number: 80
 
       - path: /voting
