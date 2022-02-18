@@ -9,9 +9,10 @@ spec:
   tls:
     - secretName: nginx-cert
       hosts:
-        - srahul3-aks-ingress.centralus.cloudapp.azure.com
+        - srahul3-aks-ingress.centralindia.cloudapp.azure.com
+        
   rules:
-  - host: srahul3-aks-ingress.centralus.cloudapp.azure.com
+  - host: srahul3-aks-ingress.centralindia.cloudapp.azure.com
     http:
       paths:
       - path: /
