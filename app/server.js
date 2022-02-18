@@ -16,7 +16,7 @@ connection.once("open", function() {
 });
 
 
-app.put('/vote/:teamid', function (req, res) {   
+app.get('/vote/:teamid', function (req, res) {   
    var query = {'id': req.params.teamid};
    
    votingCandidate.find
