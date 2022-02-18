@@ -22,8 +22,12 @@ app.get('/vote/:teamid', function (req, res) {
    votingCandidate.find
 
    votingCandidate.findOneAndUpdate(query, {$inc: {votes: 1}}, {upsert: true}, function(err, doc) {
-      if (err) return res.send(500, {error: err});
-      return res.send('Succesfully saved.');
+      if (err) return res.send(500, {error: err, status: 'error'});
+
+      var result = new Map();
+      result.set('status', 'success');
+
+      return res.send(result);
    });   
 })
 
