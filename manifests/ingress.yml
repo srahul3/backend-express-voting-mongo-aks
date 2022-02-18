@@ -23,7 +23,7 @@ spec:
             port:
               number: 8080
 
-      - path: /vote/.*
+      - path: /vote/*
         pathType: Prefix
         backend:
           service:
