@@ -19,15 +19,13 @@ connection.once("open", function() {
 app.get('/vote/:teamid', function (req, res) {   
    var query = {'id': req.params.teamid};
    
-   votingCandidate.find
-
    votingCandidate.findOneAndUpdate(query, {$inc: {votes: 1}}, {upsert: true}, function(err, doc) {
-      if (err) return res.send(500, {error: err, status: 'error'});
+      if (err) {
+         console.log(err);
+         return res.json(500, {error: err, status: 'error'});
+      }
 
-      var result = new Map();
-      result.set('status', 'success');
-
-      return res.send(result);
+      return res.json({status: 'success'});
    });   
 })
 
@@ -35,9 +33,10 @@ app.get('/voting', function (req, res) {
    console.log( "voting data" );
    votingCandidate.find({}, function(err, result) {
       if (err) {
-        res.send(err);
+         console.log(result);
+         return res.json(500, {error: err}); 
       } else {
-        res.send(result);
+        res.json(result);
       }
     });  
 })
@@ -67,9 +66,10 @@ app.get('/bootstrap', function (req, res) {
 
   votingCandidate.insertMany(data, function(err, result) {
       if (err) {
-      res.send(err);
+         console.log(result);
+         return res.json(500, {error: err});         
       } else {
-      res.send(result);
+         res.jsonp(result);
       }
    });   
 })
