@@ -8,17 +8,20 @@ const VotingCandidate = new mongoose.Schema({
         type: String,
         index: {
             unique: true,
-            dropDups: true
+            dropDups: true.valueOf,
+            required: true
         }
     },
     name: {
-        type: String
+        type: String,
+        required: true        
     },
     logoUrl: {
         type: String
     },
     votes: {
-        type: Number
+        type: Number,
+        default: 0
     }
 });
 
