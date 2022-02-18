@@ -1,6 +1,9 @@
 var express = require('express');
+var cors = require('cors')
 var app = express();
 var fs = require("fs");
+
+app.use(cors({credentials: true, origin: true}))
 
 const mongoose = require("mongoose");
 const votingCandidate = require("./model");
