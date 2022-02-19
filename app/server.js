@@ -18,7 +18,7 @@ connection.once("open", function() {
 /**
  * Vote for a candidate
  */
-app.get('/vote/:teamid', function (req, res) {   
+app.patch('/vote/:teamid', function (req, res) {   
    var query = {'id': req.params.teamid};
    
    votingCandidate.findOneAndUpdate(query, {$inc: {votes: 1}}, {upsert: true}, function(err, doc) {
@@ -46,7 +46,7 @@ app.get('/voting', function (req, res) {
 /**
  * A bootstarp data to start with
  */
-app.get('/bootstrap', function (req, res) {
+app.put('/bootstrap', function (req, res) {
    var data = [
       {
           "id": "1",
