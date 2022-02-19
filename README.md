@@ -34,3 +34,11 @@ Note: Use same location of all the resource you are going to create in next step
 Setup a VNET for this application. Vnet provide network communication boundaries for different application to talk to each other with in same VNET.
 Setup a Cosmos-Mongo in same VNET under default subet.
 Setup AKS cluster in same VNET.
+Setup a Public IP and assign a DNS to it. e.g. <user>-<voting>.centralindia.cloudapp.azure.com
+Setup a defauly Application Gateway Service to be used by Kubnettes ingess controller.
+
+After setup we need to setup ingress and Application Gateway Ingress Controller (AGIC) add-on. Read:
+  https://docs.microsoft.com/en-us/azure/aks/ingress-basic?tabs=azure-cli
+  https://docs.microsoft.com/en-us/azure/application-gateway/tutorial-ingress-controller-add-on-existing?toc=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fazure%2Faks%2Ftoc.json&bc=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fazure%2Fbread%2Ftoc.json
+  
+
