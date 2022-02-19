@@ -74,10 +74,9 @@ app.get('/bootstrap', function (req, res) {
    });   
 })
 
-app.get('/', function (req, res) {
-   console.log( "home page is called" );
-   res.json({api: 'welcome'});
-})
+app.get("*", function (req, res) {
+   res.status(200).send("welcome");
+});
 
 var server = app.listen(8080, function () {
    var host = server.address().address
