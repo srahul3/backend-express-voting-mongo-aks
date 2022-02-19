@@ -19,7 +19,10 @@ az network application-gateway create -n agw -l centralindia -g srahul3-aks-rg -
 
 /
 # enable AGIC on an existing AKS cluster
-appgwId=$(az network application-gateway show -n agw -g srahul3-aks-rg -o tsv --query "id") 
+appgwId=$(az network application-gateway show -n agw-aks -g MC_srahul3-aks-rg_srahul3-aks_centralindia -o tsv --query "id")
+# In case add-on is aready installed with a gateway. Uninstall using nelow command 
+az aks disable-addons -a ingress-appgw -n srahul3-aks -g srahul3-aks-rg
+# Installing addon
 az aks enable-addons -n srahul3-aks -g srahul3-aks-rg -a ingress-appgw --appgw-id $appgwId
 
 
