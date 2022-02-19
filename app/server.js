@@ -15,7 +15,9 @@ connection.once("open", function() {
   console.log("MongoDB database connection established successfully");
 });
 
-
+/**
+ * Vote for a candidate
+ */
 app.get('/vote/:teamid', function (req, res) {   
    var query = {'id': req.params.teamid};
    
@@ -41,7 +43,9 @@ app.get('/voting', function (req, res) {
     });  
 })
 
-
+/**
+ * A bootstarp data to start with
+ */
 app.get('/bootstrap', function (req, res) {
    var data = [
       {
@@ -64,6 +68,7 @@ app.get('/bootstrap', function (req, res) {
       }
   ];
 
+  // Writing the bootstrap data to DB
   votingCandidate.insertMany(data, function(err, result) {
       if (err) {
          console.log(result);
@@ -74,10 +79,16 @@ app.get('/bootstrap', function (req, res) {
    });   
 })
 
+/**
+ * This helps Azure Application gateway to keep watch on this application's health
+ */
 app.get("*", function (req, res) {
    res.status(200).send("welcome");
 });
 
+/**
+ * Starting the rest application server
+ */
 var server = app.listen(8080, function () {
    var host = server.address().address
    var port = server.address().port
