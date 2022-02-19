@@ -9,10 +9,10 @@ spec:
   tls:
     - secretName: nginx-cert
       hosts:
-        - srahul3-awg-aks.centralindia.cloudapp.azure.com
+        - srahul3-awg-aks.centralindia.cloudapp.azure.com:8080
         
   rules:
-  - host: srahul3-awg-aks.centralindia.cloudapp.azure.com
+  - host: srahul3-awg-aks.centralindia.cloudapp.azure.com:8080
     http:
       paths:
       - path: /voting
