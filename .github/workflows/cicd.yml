@@ -26,7 +26,10 @@ jobs:
         set: ${{ secrets.MONGODB_CONNECTION_STRING }}
         get: true
         append: true
-        
+
+    - run: |
+        car ./manifests/config.yml
+
     - name: Create ACR
       id: create-acr
       run: |
@@ -75,6 +78,7 @@ jobs:
           manifests/deployment.yml
           manifests/service.yml
           manifests/ingress.yml
+          manifests/config.yml
         images: |
           ${{ secrets.ACR_NAME }}.azurecr.io/backend-node-voting:${{ github.sha }}
         imagepullsecrets: |
