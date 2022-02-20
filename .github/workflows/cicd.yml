@@ -28,7 +28,7 @@ jobs:
         append: true
 
     - run: |
-        car ./manifests/config.yml
+        cat ./manifests/config.yml
 
     - name: Create ACR
       id: create-acr
