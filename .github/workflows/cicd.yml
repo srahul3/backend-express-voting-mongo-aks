@@ -22,10 +22,10 @@ jobs:
       uses: endaft/action-yamler@v1.0.5
       with:
         file: ./manifests/config.yml
-        path: MONGO_DB
+        path: data.MONGO_DB
         set: ${{ secrets.MONGODB_CONNECTION_STRING }}
         get: true
-        append: true
+        append: false
 
     - run: |
         cat ./manifests/config.yml
