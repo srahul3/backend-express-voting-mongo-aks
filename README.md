@@ -1,4 +1,4 @@
-# Voting application Node JS Restful server based on Express
+# A Voting application arcitectured using distributed system architecture, tuned to be deployed and Azure and Azure Kubernetes Service (AKS)
 ### Acronyms
 Stacks = GitHub template
 
@@ -41,5 +41,7 @@ After setup, we need to set up the ingress and Application Gateway Ingress Contr
   https://docs.microsoft.com/en-us/azure/aks/ingress-basic?tabs=azure-cli
   https://docs.microsoft.com/en-us/azure/application-gateway/tutorial-ingress-controller-add-on-existing?toc=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fazure%2Faks%2Ftoc.json&bc=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fazure%2Fbread%2Ftoc.json
 
-  Also, read the architecture of AGIC at https://azure.github.io/application-gateway-kubernetes-ingress/
+  Also, read about the architecture of AGIC at https://azure.github.io/application-gateway-kubernetes-ingress/
+  ![image](https://user-images.githubusercontent.com/17195847/154890253-5d680012-efbe-47b4-8dc1-c5eabbb98856.png)
+
   
