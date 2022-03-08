@@ -17,19 +17,13 @@ jobs:
         client-id: 10cfb1b7-8be3-4d42-aef0-8ea206ecc87a
         tenant-id: c5da8880-8d88-4e7f-9bac-ddfca284ea75
         subscription-id: f99fd245-91fb-4fb5-80b5-3a12f48208a1
-
-    - name: Config substitution with secrets
-      uses: endaft/action-yamler@v1.0.5
+    
+    - name: Update parameters
+      uses: datamonsters/replace-action@v2
       with:
-        file: ./manifests/config.yml
-        path: data.MONGO_DB
-        set: ${{ secrets.MONGODB_CONNECTION_STRING }}
-        get: true
-        append: false
-
-    - run: |
-        cat ./manifests/config.yml
-
+        files: './manifests/config.yml'
+        replacements: '$mongo_db_path=${{ secrets.MONGODB_CONNECTION_STRING }}'
+    
     - name: Create ACR
       id: create-acr
       run: |
