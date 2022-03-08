@@ -53,7 +53,7 @@ jobs:
     - name: Update docker image
       uses: datamonsters/replace-action@v2
       with:
-        files: './manifests/ingress2.yml'
+        files: './manifests/deployment.yml'
         replacements: '$image=${{ secrets.ACR_NAME }}.azurecr.io/backend-node-voting:${{ github.sha }}'
         
     - uses: azure/k8s-set-context@v1
