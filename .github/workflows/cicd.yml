@@ -27,7 +27,7 @@ jobs:
     - name: Update dns parameters
       uses: datamonsters/replace-action@v2
       with:
-        files: './manifests/ingress.yml'
+        files: './manifests/ingress2.yml'
         replacements: '$dns_name1=${{ secrets.DNS_NAME }},$dns_name2=${{ secrets.DNS_NAME }}'
         
     - name: Create ACR
@@ -78,7 +78,7 @@ jobs:
         manifests: |
           manifests/deployment.yml
           manifests/service.yml
-          manifests/ingress.yml
+          manifests/ingress2.yml
           manifests/config.yml
         images: |
           ${{ secrets.ACR_NAME }}.azurecr.io/backend-node-voting:${{ github.sha }}
