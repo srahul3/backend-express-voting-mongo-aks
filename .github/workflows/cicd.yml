@@ -57,6 +57,7 @@ jobs:
     
     - name: Create namespace
       run: |
+        az aks get-credentials --resource-group ${{ secrets.AZURE_AKS_RESOURCE_GROUP }} --name ${{ secrets.AZURE_AKS_NAME }} -o json
         namespacePresent=`kubectl get namespace | grep default | wc -l`
         if [ $namespacePresent -eq 0 ]
         then
