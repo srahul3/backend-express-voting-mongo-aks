@@ -4,7 +4,7 @@ metadata:
   name: be-config
 data:
   # property-like keys; each key maps to a simple value
-  MONGO_DB: "path substitution"
+  MONGO_DB: $mongo_db_path
   
   # file-like keys
   test.properties: |
