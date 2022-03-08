@@ -28,7 +28,7 @@ jobs:
       uses: datamonsters/replace-action@v2
       with:
         files: './manifests/ingress.yml'
-        replacements: '$dns_name=${{ secrets.DNS_NAME }}'
+        replacements: '$dns_name1=${{ secrets.DNS_NAME }},$dns_name2=${{ secrets.DNS_NAME }}'
         
     - name: Create ACR
       id: create-acr
