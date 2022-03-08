@@ -76,10 +76,10 @@ jobs:
       with:
         namespace: default
         manifests: |
+          manifests/config.yml
           manifests/deployment.yml
           manifests/service.yml
-          manifests/ingress2.yml
-          manifests/config.yml
+          manifests/ingress2.yml          
         images: |
           ${{ secrets.ACR_NAME }}.azurecr.io/backend-node-voting:${{ github.sha }}
         imagepullsecrets: |
