@@ -8,7 +8,8 @@ app.use(cors({credentials: true, origin: true}))
 const mongoose = require("mongoose");
 const votingCandidate = require("./model");
 
-var uri = "mongodb://srahul3-voting-db:grFE2DyiYrxzavKkTA2x5KSOrTUhPP2g7ldKGCUljfJ1Kse9NUGpst4Ada0VKwI3VP3IsZakDSNfxSMNezgtTQ==@srahul3-voting-db.mongo.cosmos.azure.com:10255/?ssl=true&retrywrites=false&replicaSet=globaldb&maxIdleTimeMS=120000&appName=@srahul3-voting-db@";
+var uri = process.env.MONGO_DB;
+console.log('Mongo DB url: ' + uri);
 mongoose.connect(uri, { useUnifiedTopology: true, useNewUrlParser: true });
 const connection = mongoose.connection;
 connection.once("open", function() {
@@ -83,7 +84,8 @@ app.put('/bootstrap', function (req, res) {
  * This helps Azure Application gateway to keep watch on this application's health
  */
 app.get("*", function (req, res) {
-   res.status(200).send("welcome");
+   var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
+   res.status(200).send('welcome: ' + fullUrl);
 });
 
 /**
