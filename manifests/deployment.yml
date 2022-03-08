@@ -15,7 +15,7 @@ spec:
       containers:
         - name: "backend-node-voting"
           # name doesnt matter since we will replace it with image substitution in actions
-          image: "srahul3.azurecr.io/backend-node-voting"
+          image: "$image"
           ports:
             - containerPort: 8080
           
