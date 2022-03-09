@@ -56,6 +56,11 @@ jobs:
         files: './manifests/deployment.yml'
         replacements: '$image=${{ secrets.ACR_NAME }}.azurecr.io/backend-node-voting:${{ github.sha }}'
    
+    - uses: azure/k8s-set-context@v1
+      id: login
+      with:
+         kubeconfig: ${{ secrets.AKS_KUBECONFIG }}
+         
     - name: K8s context
       run: |
         az aks get-credentials --resource-group ${{ secrets.AZURE_AKS_RESOURCE_GROUP }} --name ${{ secrets.AZURE_AKS_NAME }} -o json
