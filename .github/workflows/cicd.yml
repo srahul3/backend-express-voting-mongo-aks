@@ -23,7 +23,13 @@ jobs:
       run: |
         az aks get-credentials --resource-group ${{ secrets.AZURE_AKS_RESOURCE_GROUP }} --name ${{ secrets.AZURE_AKS_NAME }} -o json
         kubeconfig=$(cat /home/runner/.kube/config)
-        echo ${kubeconfig} 
+        echo ${kubeconfig}
+        echo "::set-output name=kubeconfig::`echo ${kubeconfig}`"
+    
+    - uses: azure/k8s-set-context@v1
+      id: login
+      with:
+         kubeconfig: ${{ steps.kubeconfig.outputs.kubeconfig }}
     
     - name: Update parameters
       uses: datamonsters/replace-action@v2
