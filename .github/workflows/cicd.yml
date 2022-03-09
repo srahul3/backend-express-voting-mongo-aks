@@ -18,6 +18,13 @@ jobs:
         tenant-id: c5da8880-8d88-4e7f-9bac-ddfca284ea75
         subscription-id: f99fd245-91fb-4fb5-80b5-3a12f48208a1
     
+    - name: K8s context
+      id: kubeconfig
+      run: |
+        az aks get-credentials --resource-group ${{ secrets.AZURE_AKS_RESOURCE_GROUP }} --name ${{ secrets.AZURE_AKS_NAME }} -o json
+        kubeconfig=$(cat /home/runner/.kube/config)
+        echo ${kubeconfig} 
+    
     - name: Update parameters
       uses: datamonsters/replace-action@v2
       with:
@@ -55,13 +62,6 @@ jobs:
       with:
         files: './manifests/deployment.yml'
         replacements: '$image=${{ secrets.ACR_NAME }}.azurecr.io/backend-node-voting:${{ github.sha }}'
-         
-    - name: K8s context
-      id: kubeconfig
-      run: |
-        az aks get-credentials --resource-group ${{ secrets.AZURE_AKS_RESOURCE_GROUP }} --name ${{ secrets.AZURE_AKS_NAME }} -o json
-        kubeconfig=$(echo /home/runner/.kube/config)
-        echo ${kubeconfig}       
     
     - name: Create namespace
       run: |        
