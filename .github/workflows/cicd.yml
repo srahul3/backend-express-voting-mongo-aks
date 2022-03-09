@@ -55,15 +55,14 @@ jobs:
       with:
         files: './manifests/deployment.yml'
         replacements: '$image=${{ secrets.ACR_NAME }}.azurecr.io/backend-node-voting:${{ github.sha }}'
-        
-    - uses: azure/k8s-set-context@v1
-      id: login
-      with:
-         kubeconfig: ${{ secrets.AKS_KUBECONFIG }}
-    
-    - name: Create namespace
+   
+    - name: K8s context
       run: |
         az aks get-credentials --resource-group ${{ secrets.AZURE_AKS_RESOURCE_GROUP }} --name ${{ secrets.AZURE_AKS_NAME }} -o json
+        
+    
+    - name: Create namespace
+      run: |        
         namespacePresent=`kubectl get namespace | grep default | wc -l`
         if [ $namespacePresent -eq 0 ]
         then
