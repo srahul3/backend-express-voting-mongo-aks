@@ -59,6 +59,7 @@ jobs:
     - name: K8s context
       run: |
         az aks get-credentials --resource-group ${{ secrets.AZURE_AKS_RESOURCE_GROUP }} --name ${{ secrets.AZURE_AKS_NAME }} -o json
+        kubectl config get-contexts -o name
         kubectl config use-context ${{ secrets.ACR_NAME }}        
     
     - name: Create namespace
