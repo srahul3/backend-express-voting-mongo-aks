@@ -21,7 +21,7 @@ jobs:
     - name: K8s context
       id: kubeconfig
       run: |
-        az aks get-credentials --resource-group ${{ secrets.AZURE_AKS_RESOURCE_GROUP }} --name ${{ secrets.AZURE_AKS_NAME }} -o json
+        az aks get-credentials --resource-group ${{ secrets.AZURE_AKS_RESOURCE_GROUP }} --name ${{ secrets.AZURE_AKS_NAME }}
         kubeconfig=$(cat /home/runner/.kube/config)
         echo ${kubeconfig}
         echo "::set-output name=kubeconfig::`echo ${kubeconfig}`"
