@@ -50,7 +50,7 @@ app.get('/voting', function (req, res) {
 /**
  * A bootstarp data to start with
  */
-app.put('/bootstrap', function (req, res) {
+app.get('/bootstrap', function (req, res) {
    var data = [
       {
           "id": "1",
