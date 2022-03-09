@@ -21,7 +21,15 @@ spec:
             name: node-voting-be-svc
             port:
               number: 8080
-
+              
+      - path: /bootstrap
+        pathType: Exact
+        backend:
+          service:
+            name: node-voting-be-svc
+            port:
+              number: 8080
+              
       - path: /vote/(.*)
         pathType: Exact
         backend:
