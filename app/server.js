@@ -10,6 +10,7 @@ const votingCandidate = require("./model");
 
 // the url string length is getting clipped
 // var uri = process.env.MONGO_DB;
+console.log('Mongo DB url from env : ' + process.env.MONGO_DB);
 var uri = 'mongodb://srahul3aksmdb2:JeeWrEXKBGoyMcJwNXRAXB5CtzbwwGmYoEmVlvY3Ms93qNPD64mNKizv7hT5BBvOVZPn31M5tmNsVqux2GxMsQ%3D%3D@srahul3aksmdb2.mongo.cosmos.azure.com:10255/?ssl=true&retrywrites=false&maxIdleTimeMS=120000&appName=@srahul3aksmdb2@';
 console.log('Mongo DB url: ' + uri);
 mongoose.connect(uri, { useUnifiedTopology: true, useNewUrlParser: true });
