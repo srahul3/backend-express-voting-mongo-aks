@@ -1,47 +1,90 @@
-# A Voting application arcitectured using distributed system architecture, tuned to be deployed and Azure and Azure Kubernetes Service (AKS)
-### Acronyms
-Stacks = GitHub template
+[![Use this template](https://github.com/stack-instance/badge.svg)](https://github.com/stack-instance?stack_template_owner=srahul3&stack_template_repo=frontend-react-voting-aks)
 
-## What does this application do?
-This Voting application is architectured as distributed scalable, resilient and highly scalable application. The Stacks are armed with Github Actions to auto-deploy on the Kubernetes cluster. After deployment, all applications will work together on the AKS cluster.
+<p>    
+    <img src="https://uxwing.com/wp-content/themes/uxwing/download/10-brands-and-social-media/expressjs.svg" alt="ReactJS" width="50" height ="50"/>
+    <img src="https://code.benco.io/icon-collection/azure-docs/kubernetes-services.svg" alt="AKS" width="50" height ="50"/>
+    <img src="https://code.benco.io/icon-collection/azure-docs/container-registry.svg" alt="ACS" width="50" height ="50"/>
+    <img src="https://github.com/kubernetes/community/blob/master/icons/svg/resources/labeled/ing.svg" alt="Kubernetes Ingress Controller" width="50" height ="50"/>    
+</p>
 
-The application is divided into 2 stacks based on the team's responsibility.
+ <p>    
+    <img src="https://avatars.githubusercontent.com/u/6844498?s=200&v=4" height="20">
+    <b>Use this stack</b> to spin up a NodeJS-Express backend sample voting application on Azure Kubernetes Service (AKS) cluster.  
+</p>
 
-### Frontend
-The application is built using React JS. The UI provisions the pages to view the list of voting candidates and later allow the user to cast the vote.
-Link: https://github.com/srahul3/frontend-react-voting-aks
+ <p>
+    <b>The stack will create and configure:</b>
+    
+      1) A containter image of this application
+      2) Two replica-set of the application
+      2) Loadbalancer service to access the replica-set   
+      3) Configure the paths in ingress controller to access the application using DNS name
+      4) Config map service.
+</p>
 
-### Backend
-The application is built using Node JS featured with Express. The application exposes HTTP rest API which the frontend consumes.
-Exposed APIs are:
-GET /voting  -  List all the voting candidates.
-PATCH /vote/:candidateID - Request to increment the candidate's vote by 1.
+## Dependencies
 
-Link: https://github.com/srahul3/backend-express-voting-mongo-aks
+[![Use this template](https://github.com/stack-instance/badge.svg)](https://github.com/stack-instance?stack_template_owner=srahul3&stack_template_repo=aks-acs-ingress-setup) The stack will help you to setup the AKS custer for this application.
 
-### Deployment
-The applications and services will self deploy to Azure and AKS using GitHub Actions. 
-Each deployment is scaled to 2 replicas for demonstration purposes.
-Each stack will also configure the respective Loadbalancer services.
-Each stack will also configure its own ingress rules to Azure Application Gateway. The configuration is programmatically through YML configs on each stack.
+[![Use this template](https://github.com/stack-instance/badge.svg)](https://github.com/stack-instance?stack_template_owner=srahul3&stack_template_repo=backend-express-voting-mongo-aks) The stack will help you to configure and deploy the MongoDB required for this application for persistence.
 
-Network traffic flow is shown in the below image
-![image](https://user-images.githubusercontent.com/17195847/154816871-b96336fe-9743-4dc7-a36d-99fbd236a287.png)
-The Application Gateway follows path-based routing. There will be one public IP configured and based on the URL path, the request will be routed to its respective service. The user can configure the WAF and other added security features by visiting the Azure portal. The Application Gateway programmatically gets configured by Ingess.yml by each stack.
 
-## Before you begin
-Note: Use the same location of all the resources you are going to create in the next steps.
-Setup a VNET for this application. VNET provide network communication boundaries for different application to talk to each other within the same VNET.
-Setup a Cosmos-Mongo in the same VNET under the default subnet.
-Setup AKS cluster in the same VNET.
-Set up a Public IP and assign a DNS to it. e.g. <user>-<voting>.centralindia.cloudapp.azure.com
-Setup a default Application Gateway Service to be used by Kubernetes ingress controller.
+## Why should you use this stack?
+The stack will configures the demo voting backend application and it code along with CI/CD pipeline to deploy it on AKS cluster. It also configures the Loadbalancer service and Ingress application to make this application publically accessible.
 
-After setup, we need to set up the ingress and Application Gateway Ingress Controller (AGIC) add-on. Read:
-  https://docs.microsoft.com/en-us/azure/aks/ingress-basic?tabs=azure-cli
-  https://docs.microsoft.com/en-us/azure/application-gateway/tutorial-ingress-controller-add-on-existing?toc=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fazure%2Faks%2Ftoc.json&bc=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fazure%2Fbread%2Ftoc.json
-
-  Also, read about the architecture of AGIC at https://azure.github.io/application-gateway-kubernetes-ingress/
-  ![image](https://user-images.githubusercontent.com/17195847/154890253-5d680012-efbe-47b4-8dc1-c5eabbb98856.png)
-
+## What are the inputs to pass while setting up the stack?
+<b>OIDC Auth inputs
   
+```
+- AZURE_CLIENT_ID
+- AZURE_SUBSCRIPTION_ID
+- AZURE_TENANT_ID
+```
+<b>ACR setup inputs
+```
+- ACR_NAME
+- ACR_RESOURCE_GROUP
+```
+<b>AKS configuration inputs
+```
+AKS_KUBECONFIG
+AZURE_AKS_NAME
+AZURE_AKS_RESOURCE_GROUP
+```
+<b>Other inputs
+```
+- BACKEND_URL
+- DNS_NAME
+- AZURE_LOCATION
+```
+  
+#### Github apps installed with this stack
+```
+None
+```
+
+## Exposed APIs
+GET /voting  -  List all the voting candidates.
+GET /vote/:candidateID - Request to increment the candidate's vote by 1.
+GET / for AKS health monitoring
+  
+## Learn more 
+
+### Azure Kubernetes Service (AKS)
+Learn more about AKS from the official tutorial.
+Visit [https://azure.microsoft.com/en-in/services/kubernetes-service/#overview](https://azure.microsoft.com/en-in/services/kubernetes-service/#overview) to view the full documentation.
+  
+### Node js and Express JS Framework
+Learn more about Express JS from the official tutorial.
+Visit [https://expressjs.com/en/starter/hello-world.html](https://expressjs.com/en/starter/hello-world.html) to view the full documentation.
+
+## Other Useful links
+
+#### Contributor guide
+Please see our guide lines for [contributing.md](/.github/stacks/contributing.md).
+
+## Contributors 
+- Rahul Sharma ([@srahul3](https://twitter.com/srahul3))
+
+## License
+Unless otherwise noted, this GitHub Stack is distributed under the Apache Version 2.0 license found in the LICENSE file.
