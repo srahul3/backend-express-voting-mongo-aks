@@ -25,4 +25,5 @@ const VotingCandidate = new mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('VotingCandidate', VotingCandidate);
+var mongoDocument = 'VotingCandidate'
+module.exports = mongoose.model(mongoDocument, VotingCandidate);

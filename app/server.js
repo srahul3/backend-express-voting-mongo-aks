@@ -16,7 +16,23 @@ console.log('Mongo DB url: ' + uri);
 mongoose.connect(uri, { useUnifiedTopology: true, useNewUrlParser: true });
 const connection = mongoose.connection;
 connection.once("open", function() {
-  console.log("MongoDB database connection established successfully");
+   console.log("MongoDB database connection established successfully");
+   votingCandidate.find({}, function(err, result) {
+      if (err) {
+         console.log(result);
+      } else {
+         console.log(result);
+         if (result.length < 1) {
+            bootstarp(function(err, res) {
+               if (err) {
+                  console.log(err);                  
+               } else {
+                  console.log(res);
+               }
+            });
+         }
+      }
+    });  
 });
 
 /**
@@ -51,6 +67,27 @@ app.get('/voting', function (req, res) {
  * A bootstarp data to start with
  */
 app.get('/bootstrap', function (req, res) {
+   
+  // Writing the bootstrap data to DB
+  bootstarp(function(err, result) {
+      if (err) {
+         console.log(result);
+         return res.json(500, {error: err});         
+      } else {
+         res.jsonp(result);
+      }
+   });   
+})
+
+/**
+ * This helps Azure Application gateway to keep watch on this application's health
+ */
+app.get("*", function (req, res) {
+   var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
+   res.status(200).send('welcome: ' + fullUrl);
+});
+
+function bootstarp(callback) {
    var data = [
       {
           "id": "1",
@@ -73,23 +110,8 @@ app.get('/bootstrap', function (req, res) {
   ];
 
   // Writing the bootstrap data to DB
-  votingCandidate.insertMany(data, function(err, result) {
-      if (err) {
-         console.log(result);
-         return res.json(500, {error: err});         
-      } else {
-         res.jsonp(result);
-      }
-   });   
-})
-
-/**
- * This helps Azure Application gateway to keep watch on this application's health
- */
-app.get("*", function (req, res) {
-   var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
-   res.status(200).send('welcome: ' + fullUrl);
-});
+  votingCandidate.insertMany(data, callback);
+}
 
 /**
  * Starting the rest application server
