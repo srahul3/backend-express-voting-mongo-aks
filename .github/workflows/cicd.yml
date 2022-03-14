@@ -23,12 +23,15 @@ jobs:
       with:
          kubeconfig: ${{ secrets.AKS_KUBECONFIG }}
     
-    - name: Update parameters
-      uses: datamonsters/replace-action@v2
+    - name: Update parameters        
+      uses: cschleiden/replace-tokens@v1
       with:
+        tokenPrefix: '{'
+        tokenSuffix: '}'
         files: './manifests/config.yml'
-        replacements: '$mongo_db_path=${{ secrets.MONGODB_CONNECTION_STRING }}'
-        
+      env:
+        mongo_db_path: ${{ secrets.MONGODB_CONNECTION_STRING }}
+    
     - name: Update dns parameters
       uses: datamonsters/replace-action@v2
       with:
