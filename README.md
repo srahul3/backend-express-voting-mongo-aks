@@ -26,7 +26,7 @@
 
 [![Use this template](https://github.com/stack-instance/badge.svg)](https://github.com/stack-instance?stack_template_owner=srahul3&stack_template_repo=aks-acs-ingress-setup) The stack will help you to setup the AKS custer for this application.
 
-[![Use this template](https://github.com/stack-instance/badge.svg)](https://github.com/stack-instance?stack_template_owner=srahul3&stack_template_repo=backend-express-voting-mongo-aks) The stack will help you to configure and deploy the MongoDB required for this application for persistence.
+Create a public MongoDB which is required for this application for persistence.
 
 
 ## Why should you use this stack?
